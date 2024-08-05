@@ -28,6 +28,13 @@ const tourSchema = new mongoose.Schema<ITour>(
       trim: true,
     },
 
+    ratingsAverage: {
+      type: Number,
+    },
+    ratingsQuantity: {
+      type: Number,
+    },
+
     price: {
       type: Number,
       required: [true, "A tour must have a price."],

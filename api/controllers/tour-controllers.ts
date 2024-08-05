@@ -23,9 +23,9 @@ export const createTour = async (req: Request, res: Response) => {
 
 export const getAllTours = async (req: Request, res: Response) => {
   try {
+    //1 filter
     const queryObj = { ...req.query };
     const excludeFileds = ["page", "sort", "limit", "fields"];
-
     excludeFileds.forEach((el) => delete queryObj[el]);
 
     //to allows filter with operators
@@ -35,10 +35,18 @@ export const getAllTours = async (req: Request, res: Response) => {
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    const query = Tour.find(JSON.parse(queryStr));
+    let query = Tour.find(JSON.parse(queryStr));
+
+    //2 sort
+    console.log(req.query);
+    if (req.query.sort) {
+      const sortBy = (req.query.sort as string).split(",").join(" ");
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort("-createdAt");
+    }
 
     const tours = await query;
-
     return res.status(200).json({
       status: "success",
       results: tours.length,
