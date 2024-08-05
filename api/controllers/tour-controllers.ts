@@ -46,6 +46,14 @@ export const getAllTours = async (req: Request, res: Response) => {
       query = query.sort("-createdAt");
     }
 
+    //3. limit fileds
+    if (req.query.fields) {
+      const fields = (req.query.fields as string).split(",").join(" ");
+      query = query.select(fields);
+    } else {
+      query = query.select("-createdAt -updatedAt -__v");
+    }
+
     const tours = await query;
     return res.status(200).json({
       status: "success",
