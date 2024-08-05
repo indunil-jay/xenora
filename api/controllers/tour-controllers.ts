@@ -38,7 +38,6 @@ export const getAllTours = async (req: Request, res: Response) => {
     let query = Tour.find(JSON.parse(queryStr));
 
     //2 sort
-    console.log(req.query);
     if (req.query.sort) {
       const sortBy = (req.query.sort as string).split(",").join(" ");
       query = query.sort(sortBy);
@@ -54,18 +53,40 @@ export const getAllTours = async (req: Request, res: Response) => {
       query = query.select("-createdAt -updatedAt -__v");
     }
 
+    //4, Pagination
+
+    const page = (req.query.page && Number(req.query.page)) || 1;
+    const limit = (req.query.limit && Number(req.query.limit)) || 10;
+    const skip = (page - 1) * limit;
+
+    // Count total documents and pages
+    const totalDocuments = await Tour.countDocuments(JSON.parse(queryStr));
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    //check page exists
+    if (req.query.page && skip >= totalDocuments) {
+      throw new Error("This page does not exits");
+    }
+
+    query = query.skip(skip).limit(limit);
+
     const tours = await query;
+
     return res.status(200).json({
       status: "success",
-      results: tours.length,
+      results: totalDocuments,
+      totalPages: totalPages,
+      resultsPerPage: limit,
+      currentPage: page,
       data: {
         tours,
       },
     });
   } catch (error) {
+    const catchedError = error as Error;
     return res.status(404).json({
       status: "fail",
-      message: error,
+      message: catchedError.message,
     });
   }
 };
