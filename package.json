@@ -5,10 +5,16 @@
   "scripts": {
     "dev": "npx cross-env DOTENV_CONFIG_PATH=.env NODE_ENV='development' nodemon"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "typescript",
+    "node",
+    "express",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "induni jay",
   "license": "ISC",
-  "description": "",
+  "description": "tour packages booking web application",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
