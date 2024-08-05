@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Tour from "../models/tour-model";
+import { match } from "assert";
 
 export const createTour = async (req: Request, res: Response) => {
   try {
@@ -22,7 +23,21 @@ export const createTour = async (req: Request, res: Response) => {
 
 export const getAllTours = async (req: Request, res: Response) => {
   try {
-    const tours = await Tour.find();
+    const queryObj = { ...req.query };
+    const excludeFileds = ["page", "sort", "limit", "fields"];
+
+    excludeFileds.forEach((el) => delete queryObj[el]);
+
+    //to allows filter with operators
+    //come => { difficulty: 'easy', duration: { gte: '5' } }
+    //need => { difficulty: 'easy', duration: { $gte: '5' } }
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+    const query = Tour.find(JSON.parse(queryStr));
+
+    const tours = await query;
 
     return res.status(200).json({
       status: "success",

@@ -7,7 +7,7 @@ interface ITour {
   maxGroupSize: number;
   ratingsAverage: number;
   ratingsQuantity: number;
-  difficulty: "medium" | "easy" | "difficult";
+  difficulty: "medium" | "easy" | "hard";
   priceDiscount: Number;
   summary: string;
   description: string;
