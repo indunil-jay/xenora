@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import validator from "validator";
 import bcryptjs from "bcryptjs";
 
@@ -11,7 +11,13 @@ interface IUser {
   passwordConfirm: string | undefined;
 }
 
-const userSchema = new mongoose.Schema<IUser>({
+interface IUserMethods {
+  correctPassword(inputPassword: string, dbPassword: string): Promise<boolean>;
+}
+
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
   name: {
     type: String,
     required: [true, "username is required."],
@@ -46,9 +52,11 @@ const userSchema = new mongoose.Schema<IUser>({
     type: String,
     required: [true, "password is required."],
     minlength: [8, "password must be at least 8 characters long."],
+    select: false,
   },
   passwordConfirm: {
     type: String,
+    select: false,
     required: [true, "password confirmation is required."],
     minlength: [8, "password confirmation must be at least 8 characters long."],
     validate: {
@@ -68,5 +76,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const User = mongoose.model<IUser>("User", userSchema);
+userSchema.methods.correctPassword = async function (
+  inputPassword: string,
+  dbPassword: string
+) {
+  return await bcryptjs.compare(inputPassword, dbPassword);
+};
+
+const User = mongoose.model<IUser, UserModel>("User", userSchema);
 export default User;
