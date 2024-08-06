@@ -2,7 +2,6 @@ import express from "express";
 import morgan from "morgan";
 
 import tourRouter from "./routes/tour-route";
-import AppError from "./utils/app-error";
 import globalErrorHandler, {
   unhanldeRoutesHandler,
 } from "./controllers/error-controllers";
