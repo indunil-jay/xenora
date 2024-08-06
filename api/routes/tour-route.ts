@@ -11,7 +11,7 @@ router
 
 router
   .route("/:id")
-  .get(tourController.getTour)
+  .get(protect, tourController.getTour)
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);
 

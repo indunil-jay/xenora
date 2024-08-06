@@ -15,13 +15,14 @@ declare global {
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     //1 getting token and check of it's there
-    let token: string | null = null;
+    let token: string | undefined;
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer")
     ) {
       token = req.headers.authorization.split(" ")[1];
     }
+
 
     if (!token)
       return next(
