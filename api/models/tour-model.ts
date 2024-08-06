@@ -22,17 +22,17 @@ const tourSchema = new Schema<ITour>(
   {
     name: {
       type: String,
-      required: [true, "A tour must have a name."],
+      required: [true, "the tour must have a name."],
       unique: true,
       trim: true,
-      minlength: [6, "A tour name must contain at least 6 characters."],
-      maxlength: [100, "A tour name must be less than 100 characters."],
+      minlength: [6, "the tour name must contain at least 6 characters."],
+      maxlength: [100, "the tour name must be less than 100 characters."],
       validate: {
         validator: function (val: string) {
           return /^[A-Za-z\s]+$/.test(val);
         },
         message:
-          "The tour name must consist of only alphabetic characters (A-Z) and spaces.",
+          "the tour name must consist of only alphabetic characters (A-Z) and spaces.",
       },
     },
     ratingsAverage: {
@@ -45,47 +45,47 @@ const tourSchema = new Schema<ITour>(
     },
     price: {
       type: Number,
-      required: [true, "A tour must have a price."],
+      required: [true, "the tour must have a price."],
     },
     duration: {
       type: Number,
-      required: [true, "A tour must have a duration."],
+      required: [true, "the tour must have a duration."],
     },
     maxGroupSize: {
       type: Number,
-      required: [true, "A tour must have a group size."],
-      min: [1, "A tour group must contain at least 1 member."],
+      required: [true, "the tour must have a group size."],
+      min: [1, "the tour group must contain at least 1 member."],
     },
     difficulty: {
       type: String,
-      required: [true, "A tour must have a difficulty."],
+      required: [true, "the tour must have a difficulty."],
       enum: {
         values: ["medium", "easy", "hard"],
-        message: "Difficulty is either easy, medium, or hard.",
+        message: "difficulty is either easy, medium, or hard.",
       },
     },
     priceDiscount: {
       type: Number,
       validate: {
-        validator: function (this: ITour, val: number) {
+        validator: function (val: number) {
           return val < this.price;
         },
-        message: "Discount price ({VALUE}) should be below the regular price.",
+        message: "discount price ({VALUE}) should be below the regular price.",
       },
     },
     summary: {
       type: String,
       trim: true,
-      required: [true, "A tour must have a summary."],
+      required: [true, "the tour must have a summary."],
     },
     description: {
       type: String,
       trim: true,
-      required: [true, "A tour must have a description."],
+      required: [true, "the tour must have a description."],
     },
     imageCover: {
       type: String,
-      required: [true, "A tour must have a cover image."],
+      required: [true, "the tour must have a cover image."],
     },
     images: [String],
     startDates: [Date],

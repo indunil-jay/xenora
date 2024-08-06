@@ -1,10 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 
-import tourRouter from "./routes/tour-route";
 import globalErrorHandler, {
   unhanldeRoutesHandler,
-} from "./controllers/error-controllers";
+} from "./controllers/error-controller";
+import tourRouter from "./routes/tour-route";
+import authRouter from "./routes/auth-route";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 //Resource Routes
 app.use("/api/v1/tours", tourRouter);
+app.use("/api/v1/auth", authRouter);
 
 //handle unhanlde routes
 app.all("*", unhanldeRoutesHandler);

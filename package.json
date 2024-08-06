@@ -17,6 +17,7 @@
   "license": "ISC",
   "description": "tour packages booking web application",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
@@ -25,6 +26,7 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.1.0",
