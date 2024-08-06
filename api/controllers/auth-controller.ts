@@ -28,6 +28,7 @@ export const signup = catchAsync(
     });
   }
 );
+
 export const signin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;

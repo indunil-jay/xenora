@@ -76,6 +76,22 @@ const handleDatabaseValidationError = (error: any): AppError => {
   return new AppError(message, 400);
 };
 
+/**
+ * Handles JsonwebToken malforemd error and converts them to AppError instances.
+ * @returns The formatted AppError instance.
+ */
+const handleJsonWebTokenError = (): AppError => {
+  return new AppError("invalid token. please log in again!.", 401);
+};
+
+/**
+ * Handles JsonwebToken expired error and converts them to AppError instances.
+ * @returns The formatted AppError instance.
+ */
+const handleJsonTokenExpiredError = (): AppError => {
+  return new AppError("your token has expired.please log in again!.", 401);
+};
+
 const globalErrorHandler = (
   error: AppError,
   req: Request,
@@ -101,6 +117,13 @@ const globalErrorHandler = (
 
     if (error.name === "ValidationError") {
       errObj = handleDatabaseValidationError(errObj);
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      errObj = handleJsonWebTokenError();
+    }
+    if (error.name === "TokenExpiredError") {
+      errObj = handleJsonTokenExpiredError();
     }
 
     sendErrorToProductionEnvironment(errObj, res);

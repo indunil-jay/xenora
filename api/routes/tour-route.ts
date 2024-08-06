@@ -1,11 +1,12 @@
 import express from "express";
 import * as tourController from "../controllers/tour-controller";
+import { protect } from "../middleware/protect";
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(tourController.getAllTours)
+  .get(protect, tourController.getAllTours)
   .post(tourController.createTour);
 
 router
