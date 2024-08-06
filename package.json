@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "./api/server.ts",
   "scripts": {
-    "dev": "npx cross-env DOTENV_CONFIG_PATH=.env NODE_ENV=development nodemon"
+    "dev": "npx cross-env DOTENV_CONFIG_PATH=.env NODE_ENV=development nodemon",
+    "prod": "npx cross-env DOTENV_CONFIG_PATH=.env NODE_ENV=production nodemon"
   },
   "keywords": [
     "typescript",
