@@ -11,7 +11,6 @@ const locationSchema = new Schema<ILocation>({
   type: {
     type: String,
     default: "Point",
-    required: [true, "location must have a location type."],
     enum: {
       values: ["Point"],
       message: "location type value must be Point.",
