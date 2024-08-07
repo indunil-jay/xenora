@@ -1,9 +1,10 @@
-import mongoose, { Model } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import validator from "validator";
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 
 export interface IUser {
+  _id: Schema.Types.ObjectId;
   name: string;
   email: string;
   role: "user" | "admin";
