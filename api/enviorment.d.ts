@@ -10,6 +10,7 @@ declare global {
       EMAIL_PORT: string;
       EMAIL_USERNAME: string;
       EMAIL_PASSWORD: string;
+      JWT_COOKIES_EXPIRES_IN: string;
     }
   }
 }

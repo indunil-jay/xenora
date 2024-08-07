@@ -5,6 +5,7 @@ import catchAsync from "../utils/catch-async-error";
 import AppError from "../utils/app-error";
 import { signInToken } from "../utils/jwt-token-generator";
 import sendEmail from "../config/email";
+import { sendCookie } from "../utils/send-browser-cookie";
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -20,6 +21,7 @@ export const signup = catchAsync(
     const { password: p, ...userInfo } = user.toObject();
 
     const token = signInToken(user._id.toString());
+    sendCookie(token, res);
 
     return res.status(201).json({
       status: "success",
@@ -47,6 +49,7 @@ export const signin = catchAsync(
     }
 
     const token = signInToken(user._id.toString());
+    sendCookie(token, res);
 
     //3) if everything ok, send token to client
     return res.status(200).json({
@@ -127,7 +130,9 @@ export const resetPassword = catchAsync(
 
     //4. send res
     const token = signInToken(user._id.toString());
-    res.status(200).json({
+    sendCookie(token, res);
+
+    return res.status(200).json({
       status: "success",
       token,
     });

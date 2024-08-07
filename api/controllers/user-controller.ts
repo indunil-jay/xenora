@@ -3,12 +3,13 @@ import catchAsync from "../utils/catch-async-error";
 import User from "../models/user-model";
 import AppError from "../utils/app-error";
 import { signInToken } from "../utils/jwt-token-generator";
+import { sendCookie } from "../utils/send-browser-cookie";
 
 export const updatePassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     //1. get the user from collection
     const user = await User.findById({ _id: req.user._id }).select("+password");
-    console.log({ user });
+
     //2. check if posted current password is correct.
     if (
       !(await user!.correctPassword(req.body.passwordCurrent, user!.password))
@@ -21,7 +22,7 @@ export const updatePassword = catchAsync(
     await user!.save();
     //4. log in, send JWT
     const token = signInToken(user!._id.toString());
-
+    sendCookie(token, res);
     return res.status(200).json({
       status: "success",
       token,
