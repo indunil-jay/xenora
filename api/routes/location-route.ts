@@ -4,6 +4,9 @@ import { protect } from "../middleware/protect";
 
 const router = express.Router();
 
-router.post("/", protect, locationController.createLocation);
+router
+  .route("/")
+  .post(protect, locationController.createLocation)
+  .get(protect, locationController.getAllLocation);
 
 export default router;
