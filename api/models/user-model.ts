@@ -1,9 +1,9 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Query, Schema } from "mongoose";
 import validator from "validator";
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 
-export interface IUser {
+export interface IUser extends Document {
   _id: Schema.Types.ObjectId;
   name: string;
   email: string;
@@ -105,6 +105,12 @@ userSchema.pre("save", async function (next) {
 userSchema.pre("save", function (next) {
   if (!this.isModified("password") || this.isNew) return next();
   this.passwordChangedAt = new Date(Date.now());
+  next();
+});
+
+userSchema.pre<Query<any, Document<IUser>>>(/^find/, function (next) {
+  //make not select inactive user when quering
+  this.find({ active: { $ne: false } });
   next();
 });
 
