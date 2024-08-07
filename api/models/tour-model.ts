@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-interface ITour {
+interface ITour extends Document {
   name: string;
   price: number;
   duration: number;
@@ -14,25 +14,45 @@ interface ITour {
   imageCover: string;
   images: string[];
   startDates: Date[];
+  startLocation: {
+    location: Schema.Types.ObjectId;
+    address: string;
+  };
+  locations: {
+    location: Schema.Types.ObjectId;
+    day: number;
+  }[];
   createdAt: Date;
   updatedAt: Date;
 }
+
+const startLocationSchema = new Schema({
+  location: {
+    type: Schema.Types.ObjectId,
+    ref: "Location",
+    required: [true, "start location must have a location."],
+  },
+  address: {
+    type: String,
+    required: [true, "start location must have a start address."],
+  },
+});
 
 const tourSchema = new Schema<ITour>(
   {
     name: {
       type: String,
-      required: [true, "the tour must have a name."],
+      required: [true, "The tour must have a name."],
       unique: true,
       trim: true,
-      minlength: [6, "the tour name must contain at least 6 characters."],
-      maxlength: [100, "the tour name must be less than 100 characters."],
+      minlength: [6, "The tour name must contain at least 6 characters."],
+      maxlength: [100, "The tour name must be less than 100 characters."],
       validate: {
         validator: function (val: string) {
           return /^[A-Za-z\s]+$/.test(val);
         },
         message:
-          "the tour name must consist of only alphabetic characters (A-Z) and spaces.",
+          "The tour name must consist of only alphabetic characters (A-Z) and spaces.",
       },
     },
     ratingsAverage: {
@@ -45,23 +65,23 @@ const tourSchema = new Schema<ITour>(
     },
     price: {
       type: Number,
-      required: [true, "the tour must have a price."],
+      required: [true, "The tour must have a price."],
     },
     duration: {
       type: Number,
-      required: [true, "the tour must have a duration."],
+      required: [true, "The tour must have a duration."],
     },
     maxGroupSize: {
       type: Number,
-      required: [true, "the tour must have a group size."],
-      min: [1, "the tour group must contain at least 1 member."],
+      required: [true, "The tour must have a group size."],
+      min: [1, "The tour group must contain at least 1 member."],
     },
     difficulty: {
       type: String,
-      required: [true, "the tour must have a difficulty."],
+      required: [true, "The tour must have a difficulty."],
       enum: {
         values: ["medium", "easy", "hard"],
-        message: "difficulty is either easy, medium, or hard.",
+        message: "Difficulty is either easy, medium, or hard.",
       },
     },
     priceDiscount: {
@@ -70,25 +90,50 @@ const tourSchema = new Schema<ITour>(
         validator: function (val: number) {
           return val < this.price;
         },
-        message: "discount price ({VALUE}) should be below the regular price.",
+        message: "Discount price ({VALUE}) should be below the regular price.",
       },
     },
     summary: {
       type: String,
       trim: true,
-      required: [true, "the tour must have a summary."],
+      required: [true, "The tour must have a summary."],
     },
     description: {
       type: String,
       trim: true,
-      required: [true, "the tour must have a description."],
+      required: [true, "The tour must have a description."],
     },
     imageCover: {
       type: String,
-      required: [true, "the tour must have a cover image."],
+      required: [true, "The tour must have a cover image."],
     },
     images: [String],
     startDates: [Date],
+
+    startLocation: startLocationSchema,
+    locations: {
+      type: [
+        {
+          location: {
+            type: Schema.Types.ObjectId,
+            ref: "Location",
+            required: true,
+          },
+          day: {
+            type: Number,
+            required: true,
+          },
+        },
+      ],
+      validate: {
+        validator: function (
+          locations: { location: Schema.Types.ObjectId; day: number }[]
+        ) {
+          return locations.length > 0;
+        },
+        message: "the tour must have at least one location.",
+      },
+    },
   },
   { timestamps: true }
 );
