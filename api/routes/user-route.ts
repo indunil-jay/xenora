@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.patch("/update-my-password", protect, userController.updatePassword);
 router.patch("/update-me", protect, userController.updateMe);
+router.delete("/delete-me", protect, userController.deleteMe);
 
 export default router;

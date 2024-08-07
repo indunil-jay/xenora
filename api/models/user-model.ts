@@ -14,6 +14,7 @@ export interface IUser {
   passwordChangedAt: Date;
   passwordResetToken: string | undefined;
   passwordResetExpires: Date | undefined;
+  active: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -83,7 +84,13 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
   },
+
   { timestamps: true }
 );
 
