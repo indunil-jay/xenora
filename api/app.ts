@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from "morgan";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 
 import globalErrorHandler, {
   unhanldeRoutesHandler,
@@ -14,7 +16,20 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 //middlewares
-app.use(express.json());
+
+//set  security HTTP headers
+app.use(helmet());
+
+//body parser (reading req.body)
+app.use(express.json({ limit: "20kb" }));
+
+//limit request from same IP
+const limiter = rateLimit({
+  max: 10000,
+  windowMs: 60 * 60 * 1000,
+  message: "too many request from this IP, please try again in an hour.",
+});
+app.use("/api", limiter);
 
 //Resource Routes
 app.use("/api/v1/tours", tourRouter);
