@@ -2,12 +2,14 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catch-async-error";
 import AppError from "../utils/app-error";
-import User from "../models/user-model";
+import User, { IUser } from "../models/user-model";
 
 declare global {
   namespace Express {
     interface Request {
-      userId: string;
+      user: Readonly<
+        Omit<IUser, "password" | "passwordConfirm" | "passwordChangedAt">
+      >;
     }
   }
 }
@@ -22,7 +24,6 @@ export const protect = catchAsync(
     ) {
       token = req.headers.authorization.split(" ")[1];
     }
-
 
     if (!token)
       return next(
@@ -54,7 +55,7 @@ export const protect = catchAsync(
       );
     }
 
-    req.userId = decoded.id;
+    req.user = currentUser as IUser;
     next();
   }
 );
