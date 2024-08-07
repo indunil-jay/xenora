@@ -1,6 +1,7 @@
 import mongoose, { Model } from "mongoose";
 import validator from "validator";
 import bcryptjs from "bcryptjs";
+import crypto from "crypto";
 
 export interface IUser {
   name: string;
@@ -10,6 +11,8 @@ export interface IUser {
   password: string;
   passwordConfirm: string | undefined;
   passwordChangedAt: Date;
+  passwordResetToken: string | undefined;
+  passwordResetExpires: Date | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +20,7 @@ export interface IUser {
 interface IUserMethods {
   correctPassword(inputPassword: string, dbPassword: string): Promise<boolean>;
   isChangedPassword(jwtTimeStamp: number): Promise<boolean>;
+  createPasswordResetToken(): Promise<string>;
 }
 
 type UserModel = Model<IUser, {}, IUserMethods>;
@@ -76,6 +80,8 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>(
     },
 
     passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   { timestamps: true }
 );
@@ -85,6 +91,12 @@ userSchema.pre("save", async function (next) {
 
   this.password = await bcryptjs.hash(this.password, 12);
   this.passwordConfirm = undefined;
+  next();
+});
+
+userSchema.pre("save", function (next) {
+  if (!this.isModified("password") || this.isNew) return next();
+  this.passwordChangedAt = new Date(Date.now());
   next();
 });
 
@@ -101,6 +113,18 @@ userSchema.methods.isChangedPassword = async function (jwtTimeStamp: number) {
     return changedTimeStamp > jwtTimeStamp;
   }
   return false;
+};
+
+userSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
+  return resetToken;
 };
 
 const User = mongoose.model<IUser, UserModel>("User", userSchema);
