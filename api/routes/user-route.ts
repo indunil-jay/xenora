@@ -1,8 +1,9 @@
-// import express from "express";
-// import * as authController from "../controllers/auth-controller";
+import express from "express";
+import * as userController from "../controllers/user-controller";
+import { protect } from "../middleware/protect";
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.post("/signup", authController.signup);
+router.patch("/update-my-password", protect, userController.updatePassword);
 
-// export default router;
+export default router;

@@ -6,6 +6,7 @@ import globalErrorHandler, {
 } from "./controllers/error-controller";
 import tourRouter from "./routes/tour-route";
 import authRouter from "./routes/auth-route";
+import userRouter from "./routes/user-route";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 //Resource Routes
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 
 //handle unhanlde routes
 app.all("*", unhanldeRoutesHandler);
