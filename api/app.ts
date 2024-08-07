@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 
 import globalErrorHandler, {
   unhanldeRoutesHandler,
@@ -21,7 +22,10 @@ if (process.env.NODE_ENV === "development") {
 app.use(helmet());
 
 //body parser (reading req.body)
-app.use(express.json({ limit: "20kb" }));
+app.use(express.json({ limit: "10kb" }));
+
+//data sanitization NOSQL query injection
+app.use(mongoSanitize({ allowDots: true }));
 
 //limit request from same IP
 const limiter = rateLimit({
