@@ -5,20 +5,6 @@ import catchAsync from "../utils/catch-async-error";
 import AppError from "../utils/app-error";
 import * as factor from "./handler-factory-controller";
 
-export const createTour = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const tour = await Tour.create(req.body);
-
-    return res.status(201).json({
-      status: "success",
-      message: "new tour created successfully.",
-      data: {
-        tour,
-      },
-    });
-  }
-);
-
 export const getAllTours = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const queryHandler = new QueryHandler(Tour.find(), req.query);
@@ -57,6 +43,6 @@ export const getTour = catchAsync(
     });
   }
 );
-
+export const createTour = factor.createOne(Tour);
 export const deleteTour = factor.deleteOne(Tour);
 export const updateTour = factor.updateOne(Tour);
