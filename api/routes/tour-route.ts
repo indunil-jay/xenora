@@ -8,12 +8,12 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(protect, tourController.getAllTours)
-  .post(tourController.createTour);
+  .get(tourController.getAllTours)
+  .post(protect, restrictToPermission("admin"), tourController.createTour);
 
 router
   .route("/:id")
-  .get(protect, tourController.getTour)
+  .get(tourController.getTour)
   .patch(protect, restrictToPermission("admin"), tourController.updateTour)
   .delete(protect, restrictToPermission("admin"), tourController.deleteTour);
 

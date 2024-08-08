@@ -7,8 +7,12 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(protect, locationController.createLocation)
-  .get(protect, locationController.getAllLocation);
+  .post(
+    protect,
+    restrictToPermission("admin"),
+    locationController.createLocation
+  )
+  .get(locationController.getAllLocation);
 
 router
   .route("/:id")
