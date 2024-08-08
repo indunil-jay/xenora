@@ -4,6 +4,7 @@ import User from "../models/user-model";
 import AppError from "../utils/app-error";
 import { signInToken } from "../utils/jwt-token-generator";
 import { sendCookie } from "../utils/send-browser-cookie";
+import * as factor from "./handler-factory-controller";
 
 export const updatePassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -78,3 +79,5 @@ export const deleteMe = catchAsync(
     });
   }
 );
+
+export const deleteUser = factor.deleteOne(User);

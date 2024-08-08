@@ -92,6 +92,4 @@ export const updateTour = catchAsync(
 //   }
 // );
 
-export const deleteTour = factor.deleteOne(Tour, {
-  errorMsg: "no tour found with that id.",
-});
+export const deleteTour = factor.deleteOne(Tour);
