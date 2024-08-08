@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catch-async-error";
 import Location from "../models/location-model";
 import AppError from "../utils/app-error";
-import QueryHandler from "../utils/query-handler";
 import * as factor from "./handler-factory-controller";
 
 export const createLocation = catchAsync(
@@ -28,28 +27,7 @@ export const createLocation = catchAsync(
   }
 );
 
-export const getAllLocation = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const queryHandler = new QueryHandler(Location.find(), req.query);
-
-    await queryHandler.filter();
-    queryHandler.sort().limitFields().paginate();
-
-    const tours = await queryHandler.query;
-
-    return res.status(200).json({
-      status: "success",
-      currentPage: queryHandler.currentPage,
-      totalResults: queryHandler.totalResults,
-      totalPages: queryHandler.totalPages,
-      resultsPerPage: queryHandler.resultsPerPage,
-      data: {
-        tours,
-      },
-    });
-  }
-);
-
+export const getAllLocation = factor.getAll(Location);
 export const deleteLocation = factor.deleteOne(Location);
 export const updateLocation = factor.updateOne(Location);
 export const getLocation = factor.getOne(Location);

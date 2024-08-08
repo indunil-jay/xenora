@@ -82,3 +82,4 @@ export const deleteMe = catchAsync(
 
 export const deleteUser = factor.deleteOne(User);
 export const getUser = factor.getOne(User);
+export const getAllUser = factor.getAll(User);

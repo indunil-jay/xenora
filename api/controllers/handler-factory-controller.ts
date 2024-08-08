@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { Document, Model } from "mongoose";
 import catchAsync from "../utils/catch-async-error";
 import AppError from "../utils/app-error";
+import QueryHandler from "../utils/query-handler";
 
 export const deleteOne = <T extends Document>(Model: Model<T>) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -106,6 +107,28 @@ export const getOne = <T extends Document>(
       status: "success",
       data: {
         document,
+      },
+    });
+  });
+};
+
+export const getAll = <T extends Document>(Model: Model<T>) => {
+  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const queryHandler = new QueryHandler(Model.find(), req.query);
+
+    await queryHandler.filter();
+    queryHandler.sort().limitFields().paginate();
+
+    const documents = await queryHandler.query;
+
+    return res.status(200).json({
+      status: "success",
+      currentPage: queryHandler.currentPage,
+      totalResults: queryHandler.totalResults,
+      totalPages: queryHandler.totalPages,
+      resultsPerPage: queryHandler.resultsPerPage,
+      data: {
+        documents,
       },
     });
   });

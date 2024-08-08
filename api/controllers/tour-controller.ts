@@ -1,32 +1,7 @@
-import { Request, Response, NextFunction } from "express";
 import Tour from "../models/tour-model";
-import QueryHandler from "../utils/query-handler";
-import catchAsync from "../utils/catch-async-error";
-import AppError from "../utils/app-error";
 import * as factor from "./handler-factory-controller";
 
-export const getAllTours = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const queryHandler = new QueryHandler(Tour.find(), req.query);
-
-    await queryHandler.filter(); //waits because need to counts total docs
-    queryHandler.sort().limitFields().paginate();
-
-    const tours = await queryHandler.query;
-
-    return res.status(200).json({
-      status: "success",
-      currentPage: queryHandler.currentPage,
-      totalResults: queryHandler.totalResults,
-      totalPages: queryHandler.totalPages,
-      resultsPerPage: queryHandler.resultsPerPage,
-      data: {
-        tours,
-      },
-    });
-  }
-);
-
+export const getAllTours = factor.getAll(Tour);
 export const createTour = factor.createOne(Tour);
 export const getTour = factor.getOne(Tour, { populateFields: "reviews" });
 export const deleteTour = factor.deleteOne(Tour);

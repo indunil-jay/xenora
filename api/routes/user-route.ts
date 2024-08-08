@@ -10,6 +10,12 @@ router.patch("/update-me", protect, userController.updateMe);
 router.delete("/delete-me", protect, userController.deleteMe);
 
 //admin
+router.get(
+  "/",
+  protect,
+  restrictToPermission("admin"),
+  userController.getAllUser
+);
 router
   .route("/:id")
   .get(protect, restrictToPermission("admin"), userController.deleteUser)
