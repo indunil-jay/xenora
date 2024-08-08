@@ -10,4 +10,12 @@ router
   .get(protect, reviewController.getAllReview)
   .post(protect, restrictToPermission("user"), reviewController.createReview);
 
+router
+  .route("/:id")
+  .delete(
+    protect,
+    restrictToPermission("admin"),
+    reviewController.deleteReview
+  );
+
 export default router;

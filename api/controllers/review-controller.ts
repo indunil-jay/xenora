@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catch-async-error";
 import Review from "../models/review-model";
+import * as factor from "./handler-factory-controller";
 
 export const getAllReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -38,3 +39,5 @@ export const createReview = catchAsync(
     });
   }
 );
+
+export const deleteReview = factor.deleteOne(Review);

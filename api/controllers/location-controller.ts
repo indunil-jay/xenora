@@ -3,6 +3,7 @@ import catchAsync from "../utils/catch-async-error";
 import Location from "../models/location-model";
 import AppError from "../utils/app-error";
 import QueryHandler from "../utils/query-handler";
+import * as factor from "./handler-factory-controller";
 
 export const createLocation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -48,3 +49,5 @@ export const getAllLocation = catchAsync(
     });
   }
 );
+
+export const deleteLocation = factor.deleteOne(Location);

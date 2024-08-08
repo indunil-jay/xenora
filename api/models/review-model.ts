@@ -1,6 +1,6 @@
 import { model, Query, Schema, Document } from "mongoose";
 
-interface IReview {
+interface IReview extends Document {
   review: string;
   rating: number;
   tour: Schema.Types.ObjectId;
