@@ -3,6 +3,7 @@ import Tour from "../models/tour-model";
 import QueryHandler from "../utils/query-handler";
 import catchAsync from "../utils/catch-async-error";
 import AppError from "../utils/app-error";
+import * as factor from "./handler-factory-controller";
 
 export const createTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -76,17 +77,21 @@ export const updateTour = catchAsync(
   }
 );
 
-export const deleteTour = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const tour = await Tour.findByIdAndDelete(req.params.id);
+// export const deleteTour = catchAsync(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     const tour = await Tour.findByIdAndDelete(req.params.id);
 
-    if (!tour) {
-      return next(new AppError("No tour found with that ID.", 404));
-    }
+//     if (!tour) {
+//       return next(new AppError("No tour found with that ID.", 404));
+//     }
 
-    return res.status(200).json({
-      status: "success",
-      data: null,
-    });
-  }
-);
+//     return res.status(200).json({
+//       status: "success",
+//       data: null,
+//     });
+//   }
+// );
+
+export const deleteTour = factor.deleteOne(Tour, {
+  errorMsg: "no tour found with that id.",
+});
