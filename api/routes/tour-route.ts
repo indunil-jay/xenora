@@ -17,9 +17,8 @@ router
   .patch(protect, tourController.updateTour)
   .delete(protect, restrictToPermission("admin"), tourController.deleteTour);
 
-router.use("/:tourId/reviews", reviewRouter);
-
 //nested route
+router.use("/:tourId/reviews", reviewRouter);
 // import * as reviewController from "../controllers/review-controller";
 // router
 //   .route("/:tourId/reviews")

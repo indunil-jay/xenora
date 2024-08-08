@@ -4,7 +4,14 @@ import Review from "../models/review-model";
 
 export const getAllReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const reviews = await Review.find();
+    //use get all reviews on a tour  tour/tourId/reviews
+    let filter: { tour?: string } = {};
+
+    if (req.params.tourId) {
+      filter.tour = req.params.tourId;
+    }
+
+    const reviews = await Review.find(filter);
 
     return res.status(200).json({
       status: "success",
