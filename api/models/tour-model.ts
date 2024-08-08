@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { Query } from "mongoose";
 
 interface ITour extends Document {
   name: string;
@@ -152,6 +153,22 @@ const tourSchema = new Schema<ITour>(
 //TODO: when delete a locations its related tour document need to be updated
 
 //TODO: when delete a guide its related tour document need to be updated
+
+tourSchema.pre<Query<any, Document<ITour>>>(/find/, function (next) {
+  this.populate({
+    path: "guides",
+    select: "-__v -createdAt -updatedAt",
+  })
+    .populate({
+      path: "startLocation.location",
+      select: "-__v -createdAt -updatedAt",
+    })
+    .populate({
+      path: "locations.location",
+      select: "-__v -createdAt -updatedAt",
+    });
+  next();
+});
 
 const Tour = mongoose.model<ITour>("Tour", tourSchema);
 
