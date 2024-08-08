@@ -1,4 +1,5 @@
-import { model, Query, Schema, Document } from "mongoose";
+import mongoose, { model, Query, Schema, Document, Model } from "mongoose";
+import Tour from "./tour-model";
 
 interface IReview extends Document {
   review: string;
@@ -9,7 +10,11 @@ interface IReview extends Document {
   updatedAt: Date;
 }
 
-const reviewSchema = new Schema<IReview>(
+interface IReviewModel extends Model<IReview> {
+  calcAverageRatings(tourId: Schema.Types.ObjectId): Promise<void>;
+}
+
+const reviewSchema = new Schema<IReview, IReviewModel>(
   {
     review: {
       type: String,
@@ -47,6 +52,59 @@ reviewSchema.pre<Query<any, Document<IReview>>>(/^find/, async function (next) {
   next();
 });
 
-const Review = model<IReview>("Review", reviewSchema);
+//calculate ratingsAverage and ratingsQuantity
+
+reviewSchema.statics.calcAverageRatings = async function (
+  tourId: Schema.Types.ObjectId
+) {
+  const ratingStats = await this.aggregate([
+    {
+      $match: { tour: tourId },
+    },
+    {
+      $group: {
+        _id: "$tour",
+        numberOfRating: { $sum: 1 },
+        avgRating: { $avg: "$rating" },
+      },
+    },
+  ]);
+
+  if (ratingStats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsAverage: ratingStats[0].avgRating,
+      ratingsQuantity: ratingStats[0].numberOfRating,
+    });
+  } else {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsAverage: 4.5,
+      ratingsQuantity: 0,
+    });
+  }
+};
+
+//this will work .save(), .create() operation
+reviewSchema.post("save", async function () {
+  await (this.constructor as IReviewModel).calcAverageRatings(this.tour);
+});
+
+//handle update and delete
+
+// Pre hook to find the document before updating or deleting
+reviewSchema.pre(/^findOneAnd/, async function (this: any, next) {
+  this.doc = await this.model.findOne(this.getQuery());
+  next();
+});
+
+// Post hook to calculate ratings after updating or deleting a review
+reviewSchema.post(/^findOneAnd/, async function (this: any) {
+  if (this.doc) {
+    await (this.doc.constructor as IReviewModel).calcAverageRatings(
+      this.doc.tour
+    );
+  }
+});
+
+const Review = model<IReview, IReviewModel>("Review", reviewSchema);
 
 export default Review;
