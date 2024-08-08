@@ -1,42 +1,52 @@
 [
   {
     "coordinates": [7.290572, 80.633721],
-    "name": "Kandy"
+    "name": "Kandy",
+    "_id": "64d354b5bcf86cd799439012"
   },
   {
     "coordinates": [6.927079, 79.861244],
-    "name": "Colombo"
+    "name": "Colombo",
+    "_id": "64d354b5bcf86cd799439013"
   },
   {
     "coordinates": [7.09971, 79.961235],
-    "name": "Galle"
+    "name": "Galle",
+    "_id": "64d354b5bcf86cd799439014"
   },
   {
     "coordinates": [6.976036, 80.370316],
-    "name": "Negombo"
+    "name": "Negombo",
+    "_id": "64d354b5bcf86cd799439015"
   },
   {
     "coordinates": [6.658264, 80.083464],
-    "name": "Hikkaduwa"
+    "name": "Hikkaduwa",
+    "_id": "64d354b5bcf86cd799439016"
   },
   {
     "coordinates": [7.289923, 80.636215],
-    "name": "Peradeniya"
+    "name": "Peradeniya",
+    "_id": "64d354b5bcf86cd799439017"
   },
   {
     "coordinates": [6.932608, 80.317736],
-    "name": "Nuwara Eliya"
+    "name": "Nuwara Eliya",
+    "_id": "64d354b5bcf86cd799439018"
   },
   {
     "coordinates": [6.935262, 79.958462],
-    "name": "Mount Lavinia"
+    "name": "Mount Lavinia",
+    "_id": "64d354b5bcf86cd799439019"
   },
   {
     "coordinates": [7.053896, 80.219074],
-    "name": "Bentota"
+    "name": "Bentota",
+    "_id": "64d354b5bcf86cd79943901a"
   },
   {
     "coordinates": [6.882366, 80.630488],
-    "name": "Dambulla"
+    "name": "Dambulla",
+    "_id": "64d354b5bcf86cd79943901b"
   }
 ]

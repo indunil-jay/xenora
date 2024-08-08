@@ -1,173 +1,152 @@
 [
   {
-    "name": "Discover the Cultural Heritage of Sri Lanka",
-    "price": 1800,
+    "_id": "64d35a2e2f3c8e5e8893a001",
+    "name": "Adventure in Colombo",
+    "ratingsAverage": 4.7,
+    "ratingsQuantity": 30,
+    "price": 100,
     "duration": 5,
-    "maxGroupSize": 15,
-    "ratingsAverage": 4.8,
-    "ratingsQuantity": 150,
+    "maxGroupSize": 10,
     "difficulty": "medium",
-    "priceDiscount": 150,
-    "summary": "Immerse yourself in Sri Lanka’s rich cultural heritage over 5 days.",
-    "description": "Explore ancient temples, traditional villages, and historical sites while experiencing the vibrant culture of Sri Lanka. This 5-day tour offers a deep dive into the island's history and heritage.",
-    "imageCover": "https://example.com/images/cultural-heritage-cover.jpg",
-    "images": [
-      "https://example.com/images/cultural-heritage-1.jpg",
-      "https://example.com/images/cultural-heritage-2.jpg",
-      "https://example.com/images/cultural-heritage-3.jpg"
-    ],
-    "startDates": ["2024-09-05T00:00:00.000Z", "2024-10-10T00:00:00.000Z"],
+    "priceDiscount": 10,
+    "summary": "Explore the vibrant city of Colombo.",
+    "description": "A thrilling adventure in the heart of Colombo.",
+    "imageCover": "colombo.jpg",
+    "images": ["colombo1.jpg", "colombo2.jpg"],
+    "startDates": ["2024-08-01", "2024-09-01"],
+    "guides": ["66b46d2a529f6870dcb47b84", "66b46d8bab0b65e51925cac1"],
     "startLocation": {
-      "location": "66b33a14fc2de47453fce401",
-      "address": "Colombo, Sri Lanka"
+      "location": "64d354b5bcf86cd799439013",
+      "address": "123 Colombo Street"
     },
     "locations": [
       {
-        "location": "66b33a14fc2de47453fce401",
+        "location": "64d354b5bcf86cd799439013",
         "day": 1
       },
       {
-        "location": "66b33a8ffc2de47453fce404",
+        "location": "64d354b5bcf86cd799439014",
         "day": 2
-      },
-      {
-        "location": "66b33a9ffc2de47453fce405",
-        "day": 3
-      },
-      {
-        "location": "66b33aa9fc2de47453fce406",
-        "day": 4
-      },
-      {
-        "location": "66b33ab0fc2de47453fce407",
-        "day": 5
       }
     ]
   },
   {
-    "name": "Adventure in Sri Lankas Rainforests",
-    "price": 1600,
+    "_id": "64d35a2e2f3c8e5e8893a002",
+    "name": "Kandy Cultural Tour",
+    "ratingsAverage": 4.8,
+    "ratingsQuantity": 45,
+    "price": 120,
+    "duration": 3,
+    "maxGroupSize": 15,
+    "difficulty": "easy",
+    "summary": "Discover the rich culture of Kandy.",
+    "description": "An immersive experience in Kandy's cultural heritage.",
+    "imageCover": "kandy.jpg",
+    "images": ["kandy1.jpg", "kandy2.jpg"],
+    "startDates": ["2024-08-15", "2024-09-15"],
+    "guides": ["66b46d96ab0b65e51925cac3"],
+    "startLocation": {
+      "location": "64d354b5bcf86cd799439012",
+      "address": "456 Kandy Road"
+    },
+    "locations": [
+      {
+        "location": "64d354b5bcf86cd799439012",
+        "day": 1
+      },
+      {
+        "location": "64d354b5bcf86cd799439017",
+        "day": 2
+      }
+    ]
+  },
+  {
+    "_id": "64d35a2e2f3c8e5e8893a003",
+    "name": "Galle Beach Getaway",
+    "ratingsAverage": 4.6,
+    "ratingsQuantity": 25,
+    "price": 90,
     "duration": 4,
     "maxGroupSize": 12,
-    "ratingsAverage": 4.6,
-    "ratingsQuantity": 90,
-    "difficulty": "hard",
-    "priceDiscount": 120,
-    "summary": "Experience the thrill of Sri Lanka’s lush rainforests on this exciting 4-day adventure.",
-    "description": "Venture into the heart of Sri Lanka’s rainforests, exploring diverse wildlife and breathtaking landscapes. This 4-day adventure is perfect for nature enthusiasts and thrill-seekers.",
-    "imageCover": "https://example.com/images/rainforest-adventure-cover.jpg",
-    "images": [
-      "https://example.com/images/rainforest-adventure-1.jpg",
-      "https://example.com/images/rainforest-adventure-2.jpg",
-      "https://example.com/images/rainforest-adventure-3.jpg"
-    ],
-    "startDates": ["2024-09-15T00:00:00.000Z", "2024-10-20T00:00:00.000Z"],
-    "startLocation": {
-      "location": "66b33a14fc2de47453fce401",
-      "address": "Colombo, Sri Lanka"
-    },
-    "locations": [
-      {
-        "location": "66b33a14fc2de47453fce401",
-        "day": 1
-      },
-      {
-        "location": "66b33a8ffc2de47453fce404",
-        "day": 2
-      },
-      {
-        "location": "66b33a9ffc2de47453fce405",
-        "day": 3
-      },
-      {
-        "location": "66b33aa9fc2de47453fce406",
-        "day": 4
-      }
-    ]
-  },
-  {
-    "name": "Beach Relaxation and Water Sports",
-    "price": 1400,
-    "duration": 6,
-    "maxGroupSize": 18,
-    "ratingsAverage": 4.5,
-    "ratingsQuantity": 80,
-    "difficulty": "easy",
-    "priceDiscount": 100,
-    "summary": "Unwind and enjoy water sports on Sri Lanka’s stunning beaches over 6 days.",
-    "description": "Relax on beautiful sandy beaches and take part in exciting water sports. This 6-day tour offers a perfect blend of relaxation and adventure by the sea.",
-    "imageCover": "https://example.com/images/beach-relaxation-cover.jpg",
-    "images": [
-      "https://example.com/images/beach-relaxation-1.jpg",
-      "https://example.com/images/beach-relaxation-2.jpg",
-      "https://example.com/images/beach-relaxation-3.jpg"
-    ],
-    "startDates": ["2024-09-10T00:00:00.000Z", "2024-10-15T00:00:00.000Z"],
-    "startLocation": {
-      "location": "66b33a14fc2de47453fce401",
-      "address": "Colombo, Sri Lanka"
-    },
-    "locations": [
-      {
-        "location": "66b33a14fc2de47453fce401",
-        "day": 1
-      },
-      {
-        "location": "66b33a8ffc2de47453fce404",
-        "day": 2
-      },
-      {
-        "location": "66b33a9ffc2de47453fce405",
-        "day": 3
-      },
-      {
-        "location": "66b33aa9fc2de47453fce406",
-        "day": 4
-      },
-      {
-        "location": "66b33ab0fc2de47453fce407",
-        "day": 5
-      },
-      {
-        "location": "66b33ac1fc2de47453fce408",
-        "day": 6
-      }
-    ]
-  },
-  {
-    "name": "Sri Lankas Historical Landmarks",
-    "price": 1700,
-    "duration": 3,
-    "maxGroupSize": 10,
-    "ratingsAverage": 4.7,
-    "ratingsQuantity": 110,
     "difficulty": "medium",
-    "priceDiscount": 130,
-    "summary": "Discover Sri Lanka’s historical landmarks in this 3-day cultural journey.",
-    "description": "Visit some of the most important historical landmarks in Sri Lanka. This 3-day tour is designed for history enthusiasts who want to learn more about Sri Lanka’s rich past.",
-    "imageCover": "https://example.com/images/historical-landmarks-cover.jpg",
-    "images": [
-      "https://example.com/images/historical-landmarks-1.jpg",
-      "https://example.com/images/historical-landmarks-2.jpg",
-      "https://example.com/images/historical-landmarks-3.jpg"
-    ],
-    "startDates": ["2024-09-20T00:00:00.000Z", "2024-10-25T00:00:00.000Z"],
+    "summary": "Relax on the beautiful beaches of Galle.",
+    "description": "A relaxing beach holiday in Galle.",
+    "imageCover": "galle.jpg",
+    "images": ["galle1.jpg", "galle2.jpg"],
+    "startDates": ["2024-08-10", "2024-09-10"],
+    "guides": ["66b46d2a529f6870dcb47b84", "66b46d96ab0b65e51925cac3"],
     "startLocation": {
-      "location": "66b33a14fc2de47453fce401",
-      "address": "Colombo, Sri Lanka"
+      "location": "64d354b5bcf86cd799439014",
+      "address": "789 Galle Avenue"
     },
     "locations": [
       {
-        "location": "66b33a14fc2de47453fce401",
+        "location": "64d354b5bcf86cd799439014",
         "day": 1
       },
       {
-        "location": "66b33a8ffc2de47453fce404",
+        "location": "64d354b5bcf86cd799439018",
         "day": 2
+      }
+    ]
+  },
+  {
+    "_id": "64d35a2e2f3c8e5e8893a004",
+    "name": "Negombo Lagoon Adventure",
+    "ratingsAverage": 4.5,
+    "ratingsQuantity": 20,
+    "price": 80,
+    "duration": 2,
+    "maxGroupSize": 8,
+    "difficulty": "easy",
+    "summary": "Experience the serene beauty of Negombo Lagoon.",
+    "description": "A peaceful adventure around Negombo Lagoon.",
+    "imageCover": "negombo.jpg",
+    "images": ["negombo1.jpg", "negombo2.jpg"],
+    "startDates": ["2024-08-20", "2024-09-20"],
+    "guides": ["66b46d8bab0b65e51925cac1"],
+    "startLocation": {
+      "location": "64d354b5bcf86cd799439015",
+      "address": "321 Negombo Lane"
+    },
+    "locations": [
+      {
+        "location": "64d354b5bcf86cd799439019",
+        "day": 1
       },
       {
-        "location": "66b33a9ffc2de47453fce405",
-        "day": 3
+        "location": "64d354b5bcf86cd79943901a",
+        "day": 2
+      }
+    ]
+  },
+  {
+    "_id": "64d35a2e2f3c8e5e8893a005",
+    "name": "Hikkaduwa Coral Reefs",
+    "ratingsAverage": 4.9,
+    "ratingsQuantity": 50,
+    "price": 150,
+    "duration": 6,
+    "maxGroupSize": 20,
+    "difficulty": "hard",
+    "summary": "Dive into the vibrant coral reefs of Hikkaduwa.",
+    "description": "An adventurous dive into Hikkaduwa's coral reefs.",
+    "imageCover": "hikkaduwa.jpg",
+    "images": ["hikkaduwa1.jpg", "hikkaduwa2.jpg"],
+    "startDates": ["2024-08-25", "2024-09-25"],
+    "guides": ["66b46d96ab0b65e51925cac3", "66b46d8bab0b65e51925cac1"],
+    "startLocation": {
+      "location": "64d354b5bcf86cd799439016",
+      "address": "654 Hikkaduwa Beach Road"
+    },
+    "locations": [
+      {
+        "location": "64d354b5bcf86cd799439016",
+        "day": 1
+      },
+      {
+        "location": "64d354b5bcf86cd799439015",
+        "day": 2
       }
     ]
   }

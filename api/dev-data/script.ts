@@ -4,10 +4,16 @@ import fs from "fs";
 import connectDB from "../config/database";
 import Tour from "../models/tour-model";
 import Location from "../models/location-model";
+import User from "../models/user-model";
+import Review from "../models/review-model";
 
 connectDB();
 
 const tours = JSON.parse(fs.readFileSync("dev-data/data/tours.json", "utf-8"));
+const reviews = JSON.parse(
+  fs.readFileSync("dev-data/data/reviews.json", "utf-8")
+);
+//const users = JSON.parse(fs.readFileSync("dev-data/data/users.json", "utf-8"));
 const locations = JSON.parse(
   fs.readFileSync("dev-data/data/locations.json", "utf-8")
 );
@@ -27,6 +33,8 @@ const importData = async (): Promise<void> => {
   try {
     await Tour.create(tours);
     await Location.create(locations);
+    // await User.create(users);
+    await Review.create(reviews);
     console.log("Data successfully imported.");
     process.exit(1);
   } catch (error) {
@@ -50,6 +58,9 @@ const deleteData = async (): Promise<void> => {
   try {
     await Tour.deleteMany();
     await Location.deleteMany();
+    await Review.deleteMany();
+    // await User.deleteMany();
+
     console.log("Data successfully deleted.");
     process.exit(1);
   } catch (error) {
