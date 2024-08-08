@@ -12,6 +12,7 @@ router
 
 router
   .route("/:id")
+  .patch(protect, restrictToPermission("user"), reviewController.updateReview)
   .delete(
     protect,
     restrictToPermission("admin"),
