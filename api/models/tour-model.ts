@@ -154,6 +154,13 @@ const tourSchema = new Schema<ITour>(
 
 //TODO: when delete a guide its related tour document need to be updated
 
+//vitual populate all the review that a tour has
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id",
+});
+
 tourSchema.pre<Query<any, Document<ITour>>>(/find/, function (next) {
   this.populate({
     path: "guides",
