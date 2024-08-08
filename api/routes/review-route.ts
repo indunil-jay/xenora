@@ -19,10 +19,14 @@ router
 router
   .route("/:id")
   .get(reviewController.getReview)
-  .patch(protect, restrictToPermission("user"), reviewController.updateReview)
+  .patch(
+    protect,
+    restrictToPermission("user", "admin"),
+    reviewController.updateReview
+  )
   .delete(
     protect,
-    restrictToPermission("admin"),
+    restrictToPermission("user", "admin"),
     reviewController.deleteReview
   );
 
