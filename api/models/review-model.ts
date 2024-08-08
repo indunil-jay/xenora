@@ -1,4 +1,4 @@
-import mongoose, { model, Query, Schema, Document, Model } from "mongoose";
+import { model, Query, Schema, Document, Model } from "mongoose";
 import Tour from "./tour-model";
 
 interface IReview extends Document {
@@ -42,6 +42,9 @@ const reviewSchema = new Schema<IReview, IReviewModel>(
   },
   { timestamps: true }
 );
+
+//create compound index for prevent duplicate review from same user
+reviewSchema.index({ tour: 1, user: 1 }), { unique: true };
 
 reviewSchema.pre<Query<any, Document<IReview>>>(/^find/, async function (next) {
   this.populate({ path: "user", select: "name photo" });
