@@ -5,9 +5,9 @@ import AppError from "../utils/app-error";
 
 export const deleteOne = <T extends Document>(Model: Model<T>) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const doc = await Model.findByIdAndDelete(req.params.id);
+    const document = await Model.findByIdAndDelete(req.params.id);
 
-    if (!doc) {
+    if (!document) {
       return next(
         new AppError(
           `no ${Model.collection.name
@@ -21,6 +21,33 @@ export const deleteOne = <T extends Document>(Model: Model<T>) => {
     return res.status(200).json({
       status: "success",
       data: null,
+    });
+  });
+};
+
+export const updateOne = <T extends Document>(Model: Model<T>) => {
+  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!document) {
+      return next(
+        new AppError(
+          `no ${Model.collection.name
+            .toLowerCase()
+            .slice(0, -1)} found with that id.`,
+          404
+        )
+      );
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        document,
+      },
     });
   });
 };

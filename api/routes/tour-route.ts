@@ -14,11 +14,12 @@ router
 router
   .route("/:id")
   .get(protect, tourController.getTour)
-  .patch(protect, tourController.updateTour)
+  .patch(protect, restrictToPermission("admin"), tourController.updateTour)
   .delete(protect, restrictToPermission("admin"), tourController.deleteTour);
 
 //nested route
 router.use("/:tourId/reviews", reviewRouter);
+
 // import * as reviewController from "../controllers/review-controller";
 // router
 //   .route("/:tourId/reviews")

@@ -12,6 +12,11 @@ router
 
 router
   .route("/:id")
+  .patch(
+    protect,
+    restrictToPermission("admin"),
+    locationController.updateLocation
+  )
   .delete(
     protect,
     restrictToPermission("admin"),

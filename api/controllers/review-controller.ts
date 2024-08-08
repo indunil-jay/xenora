@@ -41,3 +41,4 @@ export const createReview = catchAsync(
 );
 
 export const deleteReview = factor.deleteOne(Review);
+export const updateReview = factor.updateOne(Review);
