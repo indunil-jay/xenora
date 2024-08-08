@@ -22,21 +22,10 @@ interface ITour extends Document {
     location: Schema.Types.ObjectId;
     day: number;
   }[];
+  guides: Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
-
-const startLocationSchema = new Schema({
-  location: {
-    type: Schema.Types.ObjectId,
-    ref: "Location",
-    required: [true, "start location must have a location."],
-  },
-  address: {
-    type: String,
-    required: [true, "start location must have a start address."],
-  },
-});
 
 const tourSchema = new Schema<ITour>(
   {
@@ -109,11 +98,32 @@ const tourSchema = new Schema<ITour>(
     },
     images: [String],
     startDates: [Date],
-
-    startLocation: startLocationSchema,
-    locations: {
-      type: [
-        {
+    guides: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        validate: {
+          validator: function () {
+            return this.guides.length > 0;
+          },
+          message: "At least one guide is required.",
+        },
+      },
+    ],
+    startLocation: {
+      location: {
+        type: Schema.Types.ObjectId,
+        ref: "Location",
+        required: [true, "Start location must have a location."],
+      },
+      address: {
+        type: String,
+        required: [true, "Start location must have an address."],
+      },
+    },
+    locations: [
+      {
+        type: {
           location: {
             type: Schema.Types.ObjectId,
             ref: "Location",
@@ -124,19 +134,24 @@ const tourSchema = new Schema<ITour>(
             required: true,
           },
         },
-      ],
-      validate: {
-        validator: function (
-          locations: { location: Schema.Types.ObjectId; day: number }[]
-        ) {
-          return locations.length > 0;
+
+        validate: {
+          validator: function (
+            locations: { location: Schema.Types.ObjectId; day: number }[]
+          ) {
+            return locations.length > 0;
+          },
+          message: "the tour must have at least one location.",
         },
-        message: "the tour must have at least one location.",
       },
-    },
+    ],
   },
   { timestamps: true }
 );
+
+//TODO: when delete a locations its related tour document need to be updated
+
+//TODO: when delete a guide its related tour document need to be updated
 
 const Tour = mongoose.model<ITour>("Tour", tourSchema);
 

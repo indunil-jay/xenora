@@ -1,0 +1,42 @@
+[
+  {
+    "coordinates": [7.290572, 80.633721],
+    "name": "Kandy"
+  },
+  {
+    "coordinates": [6.927079, 79.861244],
+    "name": "Colombo"
+  },
+  {
+    "coordinates": [7.09971, 79.961235],
+    "name": "Galle"
+  },
+  {
+    "coordinates": [6.976036, 80.370316],
+    "name": "Negombo"
+  },
+  {
+    "coordinates": [6.658264, 80.083464],
+    "name": "Hikkaduwa"
+  },
+  {
+    "coordinates": [7.289923, 80.636215],
+    "name": "Peradeniya"
+  },
+  {
+    "coordinates": [6.932608, 80.317736],
+    "name": "Nuwara Eliya"
+  },
+  {
+    "coordinates": [6.935262, 79.958462],
+    "name": "Mount Lavinia"
+  },
+  {
+    "coordinates": [7.053896, 80.219074],
+    "name": "Bentota"
+  },
+  {
+    "coordinates": [6.882366, 80.630488],
+    "name": "Dambulla"
+  }
+]
