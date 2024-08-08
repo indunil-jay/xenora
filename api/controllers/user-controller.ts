@@ -80,6 +80,12 @@ export const deleteMe = catchAsync(
   }
 );
 
+export const getMe = (req: Request, res: Response, next: NextFunction) => {
+  req.params.id = req.user.id;
+  next();
+};
+
+//admin
 export const deleteUser = factor.deleteOne(User);
 export const getUser = factor.getOne(User);
 export const getAllUser = factor.getAll(User);
