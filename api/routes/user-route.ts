@@ -5,21 +5,20 @@ import { restrictToPermission } from "../middleware/restric-permission";
 
 const router = express.Router();
 
-router.get("/me", protect, userController.getMe, userController.getUser);
-router.patch("/update-my-password", protect, userController.updatePassword);
-router.patch("/update-me", protect, userController.updateMe);
-router.delete("/delete-me", protect, userController.deleteMe);
+router.use(protect);
+
+router.get("/me", userController.getMe, userController.getUser);
+router.patch("/update-my-password", userController.updatePassword);
+router.patch("/update-me", userController.updateMe);
+router.delete("/delete-me", userController.deleteMe);
 
 //admin
-router.get(
-  "/",
-  protect,
-  restrictToPermission("admin"),
-  userController.getAllUser
-);
+router.use(restrictToPermission("admin"));
+
+router.get("/", userController.getAllUser);
 router
   .route("/:id")
-  .get(protect, restrictToPermission("admin"), userController.deleteUser)
-  .delete(protect, restrictToPermission("admin"), userController.deleteUser);
+  .get(userController.deleteUser)
+  .delete(userController.deleteUser);
 
 export default router;
