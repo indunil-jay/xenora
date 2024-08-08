@@ -1,10 +1,10 @@
-import { model, Schema } from "mongoose";
+import { model, Query, Schema, Document } from "mongoose";
 
 interface IReview {
   review: string;
   rating: number;
-  tourId: Schema.Types.ObjectId;
-  userId: Schema.Types.ObjectId;
+  tour: Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,12 +24,12 @@ const reviewSchema = new Schema<IReview>(
       max: [5, "maximum rating is 5.0."],
       default: 4.5,
     },
-    tourId: {
+    tour: {
       type: Schema.Types.ObjectId,
       ref: "Tour",
       required: [true, "review must belong to a tour"],
     },
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: [true, "review must belong to a user"],
@@ -37,6 +37,14 @@ const reviewSchema = new Schema<IReview>(
   },
   { timestamps: true }
 );
+
+reviewSchema.pre<Query<any, Document<IReview>>>(/^find/, async function (next) {
+  this.populate({ path: "user", select: "name photo" }).populate({
+    path: "tour",
+    select: "name",
+  });
+  next();
+});
 
 const Review = model<IReview>("Review", reviewSchema);
 
