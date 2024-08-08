@@ -39,10 +39,11 @@ const reviewSchema = new Schema<IReview>(
 );
 
 reviewSchema.pre<Query<any, Document<IReview>>>(/^find/, async function (next) {
-  this.populate({ path: "user", select: "name photo" }).populate({
-    path: "tour",
-    select: "name",
-  });
+  this.populate({ path: "user", select: "name photo" });
+  // .populate({
+  //   path: "tour",
+  //   select: "name",
+  // });
   next();
 });
 

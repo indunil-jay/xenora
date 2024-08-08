@@ -9,11 +9,10 @@ router.patch("/update-my-password", protect, userController.updatePassword);
 router.patch("/update-me", protect, userController.updateMe);
 router.delete("/delete-me", protect, userController.deleteMe);
 
-router.delete(
-  "/:id",
-  protect,
-  restrictToPermission("admin"),
-  userController.deleteUser
-);
+//admin
+router
+  .route("/:id")
+  .get(protect, restrictToPermission("admin"), userController.deleteUser)
+  .delete(protect, restrictToPermission("admin"), userController.deleteUser);
 
 export default router;

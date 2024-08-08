@@ -52,3 +52,4 @@ export const getAllLocation = catchAsync(
 
 export const deleteLocation = factor.deleteOne(Location);
 export const updateLocation = factor.updateOne(Location);
+export const getLocation = factor.getOne(Location);

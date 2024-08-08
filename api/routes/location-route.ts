@@ -16,6 +16,7 @@ router
 
 router
   .route("/:id")
+  .get(protect, restrictToPermission("admin"), locationController.getLocation)
   .patch(
     protect,
     restrictToPermission("admin"),

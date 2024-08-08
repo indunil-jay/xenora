@@ -147,7 +147,7 @@ const tourSchema = new Schema<ITour>(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 //TODO: when delete a locations its related tour document need to be updated

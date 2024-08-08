@@ -27,3 +27,4 @@ export const getAllReview = catchAsync(
 export const createReview = factor.createOne(Review);
 export const deleteReview = factor.deleteOne(Review);
 export const updateReview = factor.updateOne(Review);
+export const getReview = factor.getOne(Review);

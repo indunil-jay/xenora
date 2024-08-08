@@ -76,3 +76,37 @@ export const createOne = <T extends Document>(Model: Model<T>) => {
     });
   });
 };
+
+interface Options {
+  populateFields?: string;
+}
+
+export const getOne = <T extends Document>(
+  Model: Model<T>,
+  options: Options = {}
+) => {
+  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    let query = Model.findById(req.params.id);
+    if (options.populateFields) {
+      query = query.populate(options.populateFields);
+    }
+
+    const document = await query;
+
+    if (!document) {
+      return next(
+        new AppError(
+          `no ${Model.collection.name.slice(0, -1)} found with that ID.`,
+          404
+        )
+      );
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        document,
+      },
+    });
+  });
+};
