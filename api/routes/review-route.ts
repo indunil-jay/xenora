@@ -1,0 +1,13 @@
+import express from "express";
+import * as reviewController from "../controllers/review-controller";
+import { protect } from "../middleware/protect";
+import { restrictToPermission } from "../middleware/restric-permission";
+
+const router = express.Router();
+
+router
+  .route("/")
+  .get(protect, reviewController.getAllReview)
+  .post(protect, restrictToPermission("user"), reviewController.createReview);
+
+export default router;

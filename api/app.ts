@@ -11,6 +11,7 @@ import tourRouter from "./routes/tour-route";
 import authRouter from "./routes/auth-route";
 import userRouter from "./routes/user-route";
 import locationRouter from "./routes/location-route";
+import reviewRouter from "./routes/review-route";
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/locations", locationRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 //handle unhanlde routes
 app.all("*", unhanldeRoutesHandler);
