@@ -3,7 +3,7 @@ import * as reviewController from "../controllers/review-controller";
 import { protect } from "../middleware/protect";
 import { restrictToPermission } from "../middleware/restric-permission";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router
   .route("/")
